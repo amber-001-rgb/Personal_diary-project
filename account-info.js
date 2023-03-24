@@ -7,70 +7,80 @@ const accountInfo = [
         password: "",
         name: "",
         id : 0, 
-        numOfEntries: 0
+        numOfEntries: 0,
+        empty: true
     },
     {
         email: "",
         password: "",
         name: "",
         id: 1, 
-        numOfEntries: 0
+        numOfEntries: 0,
+        empty: true
     },
     {
         email: "",
         password: "",
         name: "",
         id: 2, 
-        numOfEntries: 0
+        numOfEntries: 0,
+        empty: true
     },
     {
         email: "",
         password: "",
         name: "",
         id: 3, 
-        numOfEntries: 0
+        numOfEntries: 0,
+        empty: true
     },
     {
         email: "",
         password: "",
         name: "",
         id: 4, 
-        numOfEntries: 0
+        numOfEntries: 0,
+        empty: true
     },
     {
         email: "",
         password: "",
         name: "",
         id: 5, 
-        numOfEntries: 0
+        numOfEntries: 0,
+        empty: true
     },
     {
         email: "",
         password: "",
         name: "",
         id: 6, 
-        numOfEntries: 0
+        numOfEntries: 0,
+        empty: true
     },
     {
         email: "",
         password: "",
         name: "",
         id: 7, 
-        numOfEntries: 0
+        numOfEntries: 0,
+        empty: true
     },
     {
         email: "",
         password: "",
         name: "",
         id: 8, 
-        numOfEntries: 0
+        numOfEntries: 0,
+        empty: true
     },
     {
         email: "",
         password: "",
         name: "",
         id: 9, 
-        numOfEntries: 0
+        numOfEntries: 0,
+        empty: true
     }
 ];
 
