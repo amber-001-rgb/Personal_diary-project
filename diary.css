@@ -1,0 +1,116 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(rgba(255,182,193,0.8),rgba(243, 180, 217, 0.8)), url(background.jpeg);
+    /*background: transparent;*/
+    backdrop-filter: blur(8px);
+
+    font-family: "montserrat", sans-serif;
+}
+
+h2{
+    text-align: center ;
+    color: #563f5f;
+    font-size: 25pt;
+    font-weight: 1400;
+    font-style: italic;
+    font-family: "montserrat", sans-serif;
+}
+h3{
+    margin-left: 10px;
+}
+.setup{
+    margin-left: 10px;
+}
+.look{
+    margin: 10 px 0;
+    padding: 8px;
+    width: 15%;
+    font-family: "montserrat", sans-serif;
+    margin-left: 22%;
+}
+.size{
+    margin: 10 px 0;
+    padding: 8px;
+    width: 7%;
+    font-family: "montserrat", sans-serif;
+}
+.upper{
+    margin: 10 px 0;
+    padding: 8px;
+    width: 5%;
+    background-color: #77a1bd;
+    margin-left: 10px;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 20px;
+    font-family: "montserrat", sans-serif;
+}
+
+.upper:hover, .normal:hover {
+    background-color:#9400D3;
+    transition: 0.6s;
+    color: white;
+}
+
+textarea{
+    width: 800px;
+    height: 350px;
+    margin-left: 10%;
+    font-family: "montserrat", sans-serif;
+}
+
+input[type=reset]{
+    margin: 10 px 0;
+    padding: 8px;
+    width: 5%;
+    background-color: #77a1bd;
+    margin-left: 10px;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 20px;
+    font-family: "montserrat", sans-serif;   
+}
+
+.normal{
+    margin: 200 px 0;
+    padding: 8px;
+    width: 5%;
+    background-color: #77a1bd;
+    margin-left: 10px;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 20px;
+    font-family: "montserrat", sans-serif;
+}
+nav{
+    background-color: #77a1bd;
+    margin: 10 px 0;
+    padding: 8px;
+    width: 5%;
+
+    margin-right: 10px;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 20px;
+    font-family: "montserrat", sans-serif;
+}
+
+/*#content b {
+    font-weight: bold;
+  }
+  #content i {
+    font-style: italic;
+  }
+  #content u {
+    text-decoration: underline;
+  }
+  +*/
