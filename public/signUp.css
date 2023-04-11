@@ -80,6 +80,12 @@ form p a{
     color: #3c00a0;
 }
 
+#emailerror{
+    padding-bottom: 10px;
+    color: #9400D3;
+    visibility: collapse;
+}
+
 .btn-field{
     width: 320px;
     display: flex;
