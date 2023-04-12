@@ -21,6 +21,10 @@ app.get('/diary', (req, res) =>{
     res.sendFile('./views/maindiary.html', {root: __dirname});
 })
 
+app.get('/forgetPassword', (req,res) =>{
+    res.sendFile("./views/forgetPassword.html", {root: __dirname})
+})
+
 //All User Info Details
 var names = [];
 var userNames = [];
@@ -44,6 +48,11 @@ app.post('/signupServer', (req, res)=> {
     signUpStatus = signUp(req.body)
     console.log(signUpStatus)
     res.json(signUpStatus);
+})
+app.post('/changePasswordServer', (req, res)=>{
+    var changepassword = changePassword(req.body)
+    console.log(changepassword,passWords[0])
+    res.json({changepassword})
 })
 
 // permanent redirect to signup page
@@ -77,6 +86,7 @@ function signUp(req){
     var name = '' + req.nameEntered;
     var username = '' + req.usernameEntered;
     var password = '' + req.passwordEntered;
+    var question = '' + req.questionEntered;
 
     
     usernameIsTaken = false
@@ -92,9 +102,30 @@ function signUp(req){
         userNames.push(username);
         passWords.push(password);
         names.push(name);
+        questions.push(question)
         return ["signedUp", username , password, userNames[index], passWords[index], index]
     }
     return ["emailIsTaken", username , password, userNames[index], passWords[index], index]
+}
+
+function changePassword(res){
+    username = res.usernameEntered
+    question = res.question
+    password = res.newPassword
+
+    for(i=0;i<userNames.length;i++){
+        if(username.toLowerCase() === userNames[i].toLowerCase()){
+            if(question.toLowerCase() === questions[i].toLowerCase()){
+                passWords[i] = password
+                return ["Changed"]
+            }else{
+                return ["WrongAnswer"]
+            }
+        }
+    }
+    return("noUser")
+
+
 }
 
 function addDiaryEntry(i,entry){
@@ -114,6 +145,7 @@ function returnDiaryEnties(i){
 var names = ["name"];
 var userNames = ["password"];
 var passWords = ["password"];
+var questions = ["password"]
 
 
 // can only contain diary entries for 10 accounts
