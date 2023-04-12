@@ -107,12 +107,16 @@ function signUp(req){
     }
     return ["emailIsTaken", username , password, userNames[index], passWords[index], index]
 }
-
+//we call on this fundtion to change a user's password
 function changePassword(res){
+    //we take in the values from the object and place them in variables 
     username = res.usernameEntered
     question = res.question
     password = res.newPassword
-
+	//we loop through the array of usernames looking for a match, we then check that the security answer provided----- 
+	//-----is the same as the one on the server, if so we replace the current password with the new password 
+	//we return a string that reflects the status of the process we just underwent 
+	//on the client side the string js compatrd and the expected response is provided
     for(i=0;i<userNames.length;i++){
         if(username.toLowerCase() === userNames[i].toLowerCase()){
             if(question.toLowerCase() === questions[i].toLowerCase()){
@@ -127,21 +131,22 @@ function changePassword(res){
 
 
 }
-
+//adds entries to the array of text entries 
 function addDiaryEntry(i,entry){
     diaryEntries[i].text_entry.push(entry);
 }
-
+//removes an exact entry from the entry array of the user provided to it
 function removeDiaryEntries(i,entry){
     const index = diaryEntries[i].text_entry.indexOf(entry)
     diaryEntries[i].text_entry.splice(index,1)
 }
-
+//returns the array of text entries for one paricular user
 function returnDiaryEnties(i){
     return diaryEntries[i]
 }
 
 //All User Info Details
+//hardcoded entries for dev testing
 var names = ["name"];
 var userNames = ["password"];
 var passWords = ["password"];
