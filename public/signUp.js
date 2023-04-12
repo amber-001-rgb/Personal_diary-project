@@ -60,7 +60,8 @@ function signUp(){
     if(usernameEntered.length>7 && passwordEntered.length>7){
         if(signinSignout == 0){
             var nameEntered = document.getElementById("nameSpace").value;
-            var toBeSent = JSON.stringify({usernameEntered,passwordEntered,nameEntered})
+            var questionEntered = document.getElementById("questionSpace").value;
+            var toBeSent = JSON.stringify({usernameEntered,passwordEntered,nameEntered,questionEntered})
             sendSignUp(toBeSent)
         }
         if (signinSignout == 1){
@@ -91,68 +92,56 @@ function sendSignUp(toBeSent){
     })
 }  
 
+function changePassword(){
+    
+    var question = document.getElementById("questionSpace").value;
+    var usernameEntered = document.getElementById("usernameSpace").value;
+    var newPassword = document.getElementById("newPasswordSpace").value;
+    var toBeSent = JSON.stringify({question,usernameEntered,newPassword})
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: toBeSent   
+    }
+    fetch('/changePasswordServer',options).then(async res=>{
+        res = await res.json()
+        returned = res.changepassword
+        alert(returned)
+       if(returned = "Changed"){
+        newurl = "/signUp"
+        window.location.replace(newurl)
+       }else{
+        var err = document.getElementById("questionerror")
+        err.innerText = "One (Or More) Of Your Entries Is Wrong"
+       }
+
+    })
+}
+
 function openDiary(){
     newurl = "/diary"
     window.location.replace(newurl)
 }
 
 function fillEntries(entries){
-    var form = document.querySelector("#new-task-entry");
-    var input = document.querySelector("#content");
-    var list_el = document.querySelector("#entries");
-
-    e.preventDefault();
-            for(i=0;i<entries.length;i++){
-            var entry = entries[i]
-            if(!entry){
-                alert("Please make an entry");
-            }
-            var entry_el = document.createElement("div");
-            entry_el.classList.add("entry");
-
-            var entry_content_el=document.createElement("div");
-            entry_content_el.classList.add("content");
-
-            entry_el.appendChild(entry_content_el);
-
-            var entry_input_el = document.createElement("input");
-            entry_input_el.classList.add("text")
-            entry_input_el.type ="text";
-            entry_input_el.value = entry;
-            entry_input_el.setAttribute("readonly","readonly");
-            entry_content_el.appendChild(entry_input_el);
-
-            var entry_actions_el = document.createElement("div");
-            entry_actions_el.classList.add("actions");
-
-            var entry_edit_el = document.createElement("button");
-            entry_edit_el.classList.add("edit");
-            entry_edit_el.innerHTML="Edit";
-
-            var entry_delete_el = document.createElement("button");
-            entry_delete_el.classList.add("delete");
-            entry_delete_el.innerHTML="Delete";
-
-            entry_actions_el.appendChild(entry_edit_el);
-            entry_actions_el.appendChild(entry_delete_el);
-
-            list_el.appendChild(entry_el);
-            entry_el.appendChild(entry_actions_el);
-            input.value="";
-        }
+    
 }
 
 
 /**
  * 
  * 
- * DIARY PAGE JS
+ * START OF  DIARY PAGE JS
  * 
- * 
+ *
  */
 
 
 window.onload = () => {
+    for(i=0;i<entries.length;i++){
     var form = document.querySelector("#new-task-entry");
     var input = document.querySelector("#content");
     var list_el = document.querySelector("#entries");
@@ -196,7 +185,7 @@ window.onload = () => {
         list_el.appendChild(entry_el);
         entry_el.appendChild(entry_actions_el);
         input.value="";
-
+    }
         entry_edit_el.onclick = () => {
             if(entry_edit_el.innerText.toLowerCase() == "edit")
             {
