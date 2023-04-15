@@ -1,0 +1,27 @@
+{
+  "name": "personal_diary-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "account-info.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amber-001-rgb/Personal_diary-project.git"
+  },
+  "author": "Olalekan Soyewo, Amber Moseri, Khiem Nguyen, Kristin  Villena",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amber-001-rgb/Personal_diary-project/issues"
+  },
+  "homepage": "https://github.com/amber-001-rgb/Personal_diary-project#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "lodash": "^4.17.21",
+    "mongoose": "^7.0.3",
+    "morgan": "^1.10.0"
+  }
+}
