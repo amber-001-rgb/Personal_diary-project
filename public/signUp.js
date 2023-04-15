@@ -1,7 +1,9 @@
 let signinSignout = 0;
 let userIndex = -1;
+let entryarray;
 function signIn(){
     document.getElementById("nameField").style.maxHeight="0";
+    document.getElementById("questionField").style.maxHeight="0";
     document.getElementById("title").innerHTML ="Sign In"
     document.getElementById("signupBtn").classList.add("disable");
     document.getElementById("signupBtn").classList.remove("disable");
@@ -12,7 +14,7 @@ function signIn(){
         var toBeSent = JSON.stringify({usernameEntered,passwordEntered});   
         sendSignIn(toBeSent);
     }
-   
+
 
     if (signinSignout == 0){
         signinSignout = signinSignout + 1;
@@ -33,8 +35,10 @@ function sendSignIn(toBeSent){
         console.log(res)
         if(res.dataEntries){
             //write code to open diary and plant the diary entries
+            entryarray = res.dataEntries.text_entry;
+            userIndex = res.index;
+            alert(userIndex)
             openDiary();
-            fillEntries(res.dataEntries.text_entry);
         }else {
             if(res.signin0 === "wrongPassword"){
                 var err = document.getElementById("emailerror")
@@ -51,24 +55,26 @@ function sendSignIn(toBeSent){
 
 function signUp(){
     document.getElementById("nameField").style.maxHeight = "60px";
+    document.getElementById("questionField").style.maxHeight="60px";
     document.getElementById("title").innerHTML = "Sign Up"
     document.getElementById("signupBtn").classList.add("disable");
     document.getElementById("signupBtn").classList.remove("disable");
     var usernameEntered = document.getElementById("emailSpace").value;
     var passwordEntered = document.getElementById("passwordSpace").value;
-    
-    if(usernameEntered.length>7 && passwordEntered.length>7){
-        if(signinSignout == 0){
-            var nameEntered = document.getElementById("nameSpace").value;
-            var questionEntered = document.getElementById("questionSpace").value;
-            var toBeSent = JSON.stringify({usernameEntered,passwordEntered,nameEntered,questionEntered})
-            sendSignUp(toBeSent)
+    if(signinSignout == 0){
+        if(usernameEntered.length>7 && passwordEntered.length>7){
+            
+                var nameEntered = document.getElementById("nameSpace").value;
+                var questionEntered = document.getElementById("questionSpace").value;
+                var toBeSent = JSON.stringify({usernameEntered,passwordEntered,nameEntered,questionEntered})
+                sendSignUp(toBeSent)
+            
+            
+        }else{
+            alert("User And Password Must Contain A Minimum Of 8 Characters")
         }
-        if (signinSignout == 1){
-            signinSignout = signinSignout - 1;
-        }
-    }else{
-        alert("User And Password Must Contain A Minimum Of 8 Characters")
+    }else if(signinSignout == 1){
+        signinSignout = signinSignout - 1;
     }
     console.log(signinSignout)
 }
@@ -121,15 +127,86 @@ function changePassword(){
     })
 }
 
-function openDiary(){
-    newurl = "/diary"
+function Logout(){
+    userIndex = -1;
+    newurl = "/signUp"
     window.location.replace(newurl)
 }
 
-function fillEntries(entries){
-    
+function openDiary(toBeSent){
+    newurl = "/diary"
+    window.location.replace(newurl) 
 }
 
+function fillEntries(entries){
+    var form = document.querySelector("#new-task-entry");
+    var input = document.querySelector("#content");
+    var list_el = document.querySelector("#entries");
+    alert('here')
+    if(userIndex>=0){
+        for(i=0;i<entries.length;i++){
+                var entry = entries[i]
+                if(!entry){
+                    alert("Please make an entry");
+                    return;
+                }
+                var entry_el = document.createElement("div");
+                entry_el.classList.add("entry");
+
+                var entry_content_el=document.createElement("div");
+                entry_content_el.classList.add("content");
+
+                entry_el.appendChild(entry_content_el);
+
+                var entry_input_el = document.createElement("input");
+                entry_input_el.classList.add("text")
+                entry_input_el.type ="text";
+                entry_input_el.value = entry;
+                entry_input_el.setAttribute("readonly","readonly");
+                entry_content_el.appendChild(entry_input_el);
+
+                var entry_actions_el = document.createElement("div");
+                entry_actions_el.classList.add("actions");
+
+                var entry_edit_el = document.createElement("button");
+                entry_edit_el.classList.add("edit");
+                entry_edit_el.innerHTML="Edit";
+
+                var entry_delete_el = document.createElement("button");
+                entry_delete_el.classList.add("delete");
+                entry_delete_el.innerHTML="Delete";
+
+                entry_actions_el.appendChild(entry_edit_el);
+                entry_actions_el.appendChild(entry_delete_el);
+
+                list_el.appendChild(entry_el);
+                entry_el.appendChild(entry_actions_el);
+                input.value="";
+
+                entry_edit_el.onclick = () => {
+                    if(entry_edit_el.innerText.toLowerCase() == "edit")
+                    {
+                        entry_input_el.removeAttribute("readonly");
+                        entry_input_el.focus();
+                        entry_edit_el.innerText ="Save";
+                    } else
+                    {
+                        entry_input_el.setAttribute("readonly","readonly");
+                        entry_edit_el.innerHTML="Edit";
+                    }
+
+                };
+                entry_delete_el.onclick = () =>{
+                    list_el.removeChild(entry_el)
+                };
+        }
+    }
+
+}
+
+function returnEntryArray(){
+    return entryarray;
+}
 
 /**
  * 
@@ -141,7 +218,7 @@ function fillEntries(entries){
 
 
 window.onload = () => {
-    for(i=0;i<entries.length;i++){
+    entryarray = returnEntryArray();
     var form = document.querySelector("#new-task-entry");
     var input = document.querySelector("#content");
     var list_el = document.querySelector("#entries");
@@ -152,6 +229,8 @@ window.onload = () => {
         if(!entry){
             alert("Please make an entry");
             return;
+        }else{
+            saveEntry(entry, userIndex)
         }
         var entry_el = document.createElement("div");
         entry_el.classList.add("entry");
@@ -185,7 +264,7 @@ window.onload = () => {
         list_el.appendChild(entry_el);
         entry_el.appendChild(entry_actions_el);
         input.value="";
-    }
+
         entry_edit_el.onclick = () => {
             if(entry_edit_el.innerText.toLowerCase() == "edit")
             {
@@ -204,6 +283,9 @@ window.onload = () => {
         };
 
     };
+    //fillEntries(entryarray)
+    //console.log(entryarray);
+    console.log(userIndex)
 };
 
 function changeFont(font) {
@@ -241,5 +323,21 @@ function Underline(){
     }
     else{
         document.getElementById('content').style.textDecoration='none';
+    }
+}
+
+function saveEntry(entered , index){
+    entry = JSON.stringify(entered,index)
+    if(index>-1){
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: entry   
+        }
+        fetch('/addEntryServer',options).then(async res=>{
+            console.log(res);
+        })
     }
 }
