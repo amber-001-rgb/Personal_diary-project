@@ -193,4 +193,20 @@ var diaryEntries = [
     }
 ];
 
+function test(username_length, passwords_length ){
+    if (username_length === passwords_length) {
+        return true;
+      } 
+    }
 
+    function checkUniqueUsernames(userNames, username_length) {
+        for (let i = 0; i < username_length; i++) {
+          for (let j = i + 1; j < username_length; j++) {
+            if (userNames[i] === userNames[j]) {
+              return false; // If any two usernames are the same, return false
+            }
+          }
+        }
+        return true; // If all usernames are unique, return true
+      }
+      
