@@ -210,3 +210,12 @@ function test(username_length, passwords_length ){
         return true; // If all usernames are unique, return true
       }
       
+ function checkPasswordLength(passWords, passwords_length) {
+        for (let i = 0; i < passwords_length; i++) {
+          if (passWords[i].length < 8) {
+            return false; // If any password is less than 8 characters, return false
+          }
+        }
+        return true; // If all passwords are at least 8 characters, return true
+      }
+      
