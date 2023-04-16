@@ -15,10 +15,11 @@ describe('test function', () => {
       const result = checkUniqueUsernames(userNames, username_length);
       assert.strictEqual(result, true);
     });
-  
-  it('should return true if each password has at least 8 characters', () => {
+
+    it('should return true if each password has at least 8 characters', () => {
       const result = checkPasswordLength(passWords, passwords_length);
       assert.strictEqual(result, true);
     });
+    
   });
 });
