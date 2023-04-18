@@ -191,7 +191,7 @@ function returnDiaryEntries(i){
 
 
 //All User Info Details
-//hardcoded entries for dev testing
+//we have hardcoded entries for dev testing, it does not affect the functionality of the code
 var names = ["name","name2"];
 var userNames = ["username","username2"];
 var passWords = ["password","password2"];
@@ -221,5 +221,32 @@ var diaryEntries = [
     {   text_entry: [],
     }
 ];
+
+function test(username_length, passwords_length ){
+     if (username_length === passwords_length) {
+         return true;
+       } 
+     }
+
+     function checkUniqueUsernames(userNames, username_length) {
+         for (let i = 0; i < username_length; i++) {
+           for (let j = i + 1; j < username_length; j++) {
+             if (userNames[i] === userNames[j]) {
+               return false; // If any two usernames are the same, return false
+             }
+           }
+         }
+         return true; // If all usernames are unique, return true
+       }
+
+  function checkPasswordLength(passWords, passwords_length) {
+         for (let i = 0; i < passwords_length; i++) {
+           if (passWords[i].length < 8) {
+             return false; // If any password is less than 8 characters, return false
+           }
+         }
+         return true; // If all passwords are at least 8 characters, return true
+       }
+
 
 
