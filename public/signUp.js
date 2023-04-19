@@ -208,7 +208,6 @@ window.onload = () => {
         if(!entry){
             alert("Please make an entry");
         }
-        saveEntry(entry)
         var entry_el = document.createElement("div");
         entry_el.classList.add("entry");
 
