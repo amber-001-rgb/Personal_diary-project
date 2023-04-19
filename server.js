@@ -1,9 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
 
-//since this server will be hosgted locally on a pc, it has been specifically designed to host one user at a time
-var currentUser = -1;
-
 // express app
 const app = express();
 
@@ -59,10 +56,6 @@ app.post('/addEntryServer', (req,res)=>{
     res.json(diaryEntries[currentUser].text_entry)
 })
 
-app.post('/getUserServer', (req,res)=>{
-    res.json(currentUser)
-})
-
 app.post('/LogoutUserServer', (req,res)=>{
     console.log(currentUser);
     changeCurrentUser(-1)
@@ -79,9 +72,6 @@ app.post('/ReturnDiaryEntriesServer', (req,res)=>{
     res.json(arr)
 })
 
-app.post('OpenDiaryServer' , (req,res)=>{
-
-})
 // permanent redirect to signup page
 app.use((req, res) =>{
     res.redirect(308, '/signUp')
