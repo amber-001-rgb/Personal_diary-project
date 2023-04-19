@@ -1,6 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
 
+//since this server will be hosgted locally on a pc, it has been specifically designed to host one user at a time
+//var currentUser = -1;
+
 // express app
 const app = express();
 
@@ -25,10 +28,44 @@ app.get('/forgetPassword', (req,res) =>{
     res.sendFile("./views/forgetPassword.html", {root: __dirname})
 })
 
+//All User Info Details
+//we have hardcoded entries for dev testing, it does not affect the functionality of the code
+var names = ["name","name2"];
+var userNames = ["username","username2"];
+var passWords = ["password","password2"];
+var questions = ["answer","answer2"]
+var username_length = userNames.length
+var passwords_length = passWords.length
+
+function test(username_length, passwords_length ){
+    if (username_length === passwords_length) {
+        return true;
+      } 
+    }
+
+function checkUniqueUsernames(userNames, username_length) {
+        for (let i = 0; i < username_length; i++) {
+          for (let j = i + 1; j < username_length; j++) {
+            if (userNames[i] === userNames[j]) {
+              return false; // If any two usernames are the same, return false
+            }
+          }
+        }
+        return true; // If all usernames are unique, return true
+      }
+
+ function checkPasswordLength(passWords, passwords_length) {
+        for (let i = 0; i < passwords_length; i++) {
+          if (passWords[i].length < 8) {
+            return false; // If any password is less than 8 characters, return false
+          }
+        }
+        return true; // If all passwords are at least 8 characters, return true
+      }
+
 
 app.post('/signinServer', (req, res)=> {
-    console.log("Received A Sign In Request" + currentUser)
-    console.log("" + currentUser)
+    console.log("Received A Sign In Request")
     var signin = signIn(req.body) 
     var signin0 = signin[0]
     var index = signin[1]
@@ -48,28 +85,6 @@ app.post('/changePasswordServer', (req, res)=>{
     var changepassword = changePassword(req.body)
     console.log(changepassword,passWords[0])
     res.json({changepassword})
-})
-
-app.post('/addEntryServer', (req,res)=>{
-    addEntry(req.body)
-    console.log(diaryEntries[currentUser].text_entry)
-    res.json(diaryEntries[currentUser].text_entry)
-})
-
-app.post('/LogoutUserServer', (req,res)=>{
-    console.log(currentUser);
-    changeCurrentUser(-1)
-    console.log(currentUser);
-    res.json("done");
-})
-
-app.post('/ReturnDiaryEntriesServer', (req,res)=>{
-    if(currentUser>=0){
-    arr = returnDiaryEntries(currentUser)
-    }else{
-        arr = []
-    }
-    res.json(arr)
 })
 
 // permanent redirect to signup page
@@ -180,12 +195,7 @@ function returnDiaryEntries(i){
 //
 
 
-//All User Info Details
-//we have hardcoded entries for dev testing, it does not affect the functionality of the code
-var names = ["name","name2"];
-var userNames = ["username","username2"];
-var passWords = ["password","password2"];
-var questions = ["answer","answer2"]
+
 
 
 // can only contain diary entries for 10 accounts
@@ -212,31 +222,6 @@ var diaryEntries = [
     }
 ];
 
-function test(username_length, passwords_length ){
-     if (username_length === passwords_length) {
-         return true;
-       } 
-     }
-
-     function checkUniqueUsernames(userNames, username_length) {
-         for (let i = 0; i < username_length; i++) {
-           for (let j = i + 1; j < username_length; j++) {
-             if (userNames[i] === userNames[j]) {
-               return false; // If any two usernames are the same, return false
-             }
-           }
-         }
-         return true; // If all usernames are unique, return true
-       }
-
-  function checkPasswordLength(passWords, passwords_length) {
-         for (let i = 0; i < passwords_length; i++) {
-           if (passWords[i].length < 8) {
-             return false; // If any password is less than 8 characters, return false
-           }
-         }
-         return true; // If all passwords are at least 8 characters, return true
-       }
 
 
 
